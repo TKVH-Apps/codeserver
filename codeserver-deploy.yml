@@ -1,0 +1,74 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: codeserver
+  labels:
+    app: codeserver
+    part-of: codeserver
+  annotations:
+    keel.sh/policy: force
+    keel.sh/trigger: poll
+    keel.sh/pollSchedule: "@hourly"
+    keel.sh/match-tag: true
+    keel.sh/approvals: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: codeserver
+      part-of: codeserver
+  template:
+    metadata:
+      labels:
+        app: codeserver
+        part-of: codeserver
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                - ssd
+      containers:
+      - name: codeserver
+        image: lscr.io/linuxserver/code-server
+        ports:
+        - name: codeserver
+          containerPort: 8443
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Paris"
+        - name: DOCKER_MODS
+          value: "linuxserver/mods:code-server-golang|linuxserver/mods:universal-git"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: codeserver
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: codeserver
+          initialDelaySeconds: 25
+          periodSeconds: 20
+        resources:
+          limits:
+            memory: 500Mi
+          requests:
+            memory: 400Mi
+        volumeMounts:
+        - name: codeserver
+          mountPath: /config
+      volumes:
+      - name: codeserver
+        persistentVolumeClaim:
+          claimName: codeserver
