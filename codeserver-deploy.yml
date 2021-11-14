@@ -64,7 +64,7 @@ spec:
           periodSeconds: 20
         resources:
           limits:
-            memory: 800Mi
+            memory: 1Gi
           requests:
             memory: 700Mi
         volumeMounts:
