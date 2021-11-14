@@ -17,8 +17,6 @@ spec:
     matchLabels:
       app: codeserver
       part-of: codeserver
-  strategy:
-    type: Recreate 
   template:
     metadata:
       labels:
@@ -54,13 +52,13 @@ spec:
           httpGet:
             path: /
             port: codeserver
-          initialDelaySeconds: 15
+          initialDelaySeconds: 35
           periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /
             port: codeserver
-          initialDelaySeconds: 25
+          initialDelaySeconds: 45
           periodSeconds: 20
         resources:
           limits:
