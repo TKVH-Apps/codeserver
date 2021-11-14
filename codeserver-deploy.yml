@@ -17,6 +17,8 @@ spec:
     matchLabels:
       app: codeserver
       part-of: codeserver
+  strategy:
+    type: Recreate 
   template:
     metadata:
       labels:
