@@ -52,13 +52,13 @@ spec:
           httpGet:
             path: /
             port: codeserver
-          initialDelaySeconds: 35
+          initialDelaySeconds: 85
           periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /
             port: codeserver
-          initialDelaySeconds: 45
+          initialDelaySeconds: 95
           periodSeconds: 20
         resources:
           limits:
