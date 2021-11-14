@@ -47,7 +47,7 @@ spec:
         - name: TZ
           value: "Europe/Paris"
         - name: DOCKER_MODS
-          value: "linuxserver/mods:code-server-golang|linuxserver/mods:universal-git|linuxserver/mods:code-server-zsh"
+          value: "linuxserver/mods:code-server-golang|linuxserver/mods:universal-git|linuxserver/mods:code-server-zsh|linuxserver/mods:code-server-python3"
         readinessProbe:
           httpGet:
             path: /
