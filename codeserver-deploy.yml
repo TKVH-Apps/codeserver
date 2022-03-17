@@ -29,7 +29,7 @@ spec:
                 - ssd
       containers:
       - name: codeserver
-        image: lscr.io/linuxserver/code-server:4.0.1
+        image: lscr.io/linuxserver/code-server:4.1.0
         ports:
         - name: codeserver
           containerPort: 8443
